@@ -14,23 +14,32 @@ export interface IFetchLibraryDataSuccess {
 
 export type FetchLibraryDataResult = IFetchLibraryDataSuccess | IFetchLibraryDataError;
 
-export async function fetchLibraryData(): Promise<FetchLibraryDataResult> {
-  let data;
-
+export async function fetchLibraryData(queryStr: string): Promise<FetchLibraryDataResult> {
+  let res;
   try {
-    const res = await fetch(import.meta.env.G_BOOKS_API_URL);
+    res = await fetch('https://www.googleapis.com/books/v1' + queryStr);
+  } catch {
+    return {
+      __typename: 'IFetchLibraryDataError',
+      message: 'Error - fetch failed'
+    };
+  }
+  let data;
+  try {
     data = (await res.json()) as ILibraryApi_Data | ILibraryApi_Error;
   } catch {
     return {
       __typename: 'IFetchLibraryDataError',
-      message: 'oops something went wrong'
+      message: 'Error - failed to parse Json'
     };
   }
+
+  console.log('data', data);
 
   if ('error' in data) {
     return {
       __typename: 'IFetchLibraryDataError',
-      message: 'oops something went wrong',
+      message: `Error - ${data.error.message} (${data.error.code})`,
       errorData: data
     };
   }
