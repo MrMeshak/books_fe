@@ -1,0 +1,23 @@
+@use '../../styles/abstracts';
+
+.libraryGallery {
+  padding: 0rem 2rem;
+
+  &_gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+
+    @include abstracts.media-query('md') {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include abstracts.media-query('lg') {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @include abstracts.media-query('xl') {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+}

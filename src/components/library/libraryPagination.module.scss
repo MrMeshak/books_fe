@@ -1,0 +1,21 @@
+@use '../../styles/abstracts';
+
+.libraryPagination {
+  padding: 2rem 0rem;
+  display: flex;
+  justify-content: center;
+  button {
+    padding: 0.5rem 1rem;
+    color: abstracts.$slate-500;
+    font-weight: 400;
+    background-color: abstracts.$slate-100;
+    border-style: none;
+    border-radius: 0.5rem;
+    outline: 1px solid abstracts.$slate-200;
+    cursor: pointer;
+
+    &:hover {
+      outline: 1px solid abstracts.$slate-300;
+    }
+  }
+}

@@ -1,0 +1,40 @@
+@use '../../styles/abstracts';
+
+.libraryAbout {
+  z-index: -1;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  height: 100vh;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  h3 {
+    font-size: 1.5rem;
+    color: abstracts.$slate-500;
+  }
+
+  h2 {
+    padding-bottom: 2rem;
+    font-size: 4rem;
+    color: abstracts.$slate-500;
+  }
+
+  p {
+    color: abstracts.$slate-500;
+  }
+
+  h4 {
+    font-weight: 600;
+    color: abstracts.$slate-500;
+  }
+
+  img {
+    width: 100%;
+    max-width: 50rem;
+  }
+}

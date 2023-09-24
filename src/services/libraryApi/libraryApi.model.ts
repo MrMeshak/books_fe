@@ -9,9 +9,9 @@ export interface ILibraryApi_Book {
     publisher: string;
     publishedDate: string;
     description: string;
-    imageLinks: {
-      smallThumbnail: string;
-      thumbnail: string;
+    imageLinks?: {
+      smallThumbnail?: string;
+      thumbnail?: string;
     };
     previewLink: string;
     infoLink: string;

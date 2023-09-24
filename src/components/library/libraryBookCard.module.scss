@@ -1,0 +1,43 @@
+@use '../../styles/abstracts';
+
+.libraryBookCard {
+  &_thumbnail {
+    padding: 0;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 5px solid abstracts.$slate-200;
+
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  &_info {
+    padding-top: 0.5rem;
+
+    h3 {
+      color: abstracts.$slate-500;
+      padding-bottom: 0.5rem;
+      font-weight: 700;
+    }
+    p {
+      color: abstracts.$slate-400;
+      font-weight: 400;
+      font-size: 1rem;
+    }
+  }
+}
+
+.libraryBookCardPlaceholder {
+  width: 100%;
+  aspect-ratio: 5/8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: abstracts.$slate-400;
+  font-size: 1.1rem;
+
+  background-color: abstracts.$slate-200;
+}

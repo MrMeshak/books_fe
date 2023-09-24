@@ -1,0 +1,38 @@
+@use '../../styles/abstracts';
+
+.searchBar {
+  width: 100%;
+  position: relative;
+  padding: 0rem 1.5rem;
+
+  &_input {
+    padding: 0.8rem 5.8rem 0.8rem 0.8rem;
+    width: 100%;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 0.8rem;
+    background-color: abstracts.$slate-100;
+    outline: 1px solid abstracts.$slate-200;
+
+    &:focus {
+      outline: 1px solid abstracts.$slate-400;
+    }
+  }
+
+  &_controls {
+    padding: 0rem 0.8rem;
+    right: 1.5rem;
+    top: 50%;
+    transform: translate(0, -50%);
+    position: absolute;
+    display: flex;
+    gap: 0.1rem;
+    align-items: center;
+    button {
+      border: none;
+      display: flex;
+      background-color: transparent;
+      cursor: pointer;
+    }
+  }
+}
