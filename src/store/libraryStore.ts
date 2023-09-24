@@ -3,6 +3,7 @@ import { ILibraryApi_Book, ILibraryApi_Data, ILibraryApi_Error } from '../servic
 import { fetchLibraryData } from '../services/libraryApi/fetchLibraryData';
 import { generateQueryStr } from './helpers/generateQueryStr';
 import { libraryData } from '../data/development/libraryData';
+import { fetchBookData } from '../services/libraryApi/fetchBookData';
 
 export type Search_Sort = 'relevance' | 'newest';
 export type Search_Filter = '' | 'full' | 'partial';
@@ -30,9 +31,14 @@ export interface ILibraryState {
   errorData?: ILibraryApi_Error;
   libraryData?: ILibraryApi_Data;
 
+  bookStatus: IStatus;
+  bookErrorData?: ILibraryApi_Error;
+  bookData?: ILibraryApi_Book;
+
   actions: {
     search: (searchStr: string) => void;
     loadMore: () => void;
+    fetchBook: (id: string) => void;
   };
 
   resolvers: {
@@ -62,6 +68,13 @@ const useLibraryStore = create<ILibraryState>((set, get) => ({
   errorData: undefined,
   LibraryData: undefined,
 
+  bookStatus: {
+    status: '',
+    message: ''
+  },
+  bookErrorData: undefined,
+  bookData: undefined,
+
   actions: {
     search: async (searchStr: string) => {
       const { sort, filter, printType, pagination } = get();
@@ -89,6 +102,7 @@ const useLibraryStore = create<ILibraryState>((set, get) => ({
       }));
       return;
     },
+
     loadMore: async () => {
       const { libraryData, searchStr, sort, filter, printType, pagination } = get();
 
@@ -129,6 +143,44 @@ const useLibraryStore = create<ILibraryState>((set, get) => ({
         }
       }));
       return;
+    },
+
+    fetchBook: async (id: string) => {
+      if (id === '') {
+        set(() => ({ bookData: undefined }));
+        return;
+      }
+
+      const { libraryData } = get();
+      if (libraryData) {
+        const bookData = libraryData.items.find((item) => item.id === id);
+        if (bookData) {
+          set(() => ({
+            bookStatus: { status: 'success', message: 'success' },
+            bookErrorData: undefined,
+            bookData: bookData
+          }));
+          return;
+        }
+      }
+
+      set(() => ({ bookStatus: { status: 'loading', message: 'loading' } }));
+      const bookData = await fetchBookData(id);
+
+      if (bookData.__typename === 'IFetchBookDataError') {
+        set(() => ({
+          bookStatus: { status: 'error', message: 'Error - fetch failed' },
+          bookErrorData: bookData.errorData,
+          bookData: undefined
+        }));
+        return;
+      }
+
+      set(() => ({
+        bookStatus: { status: 'success', message: 'success' },
+        bookErrorData: undefined,
+        bookData: bookData.data
+      }));
     }
   },
 
@@ -144,3 +196,5 @@ export const useLibraryStatus = () => useLibraryStore((state) => state.status);
 export const useLibraryLibraryData = () => useLibraryStore((state) => state.libraryData);
 export const useLibraryErrorData = () => useLibraryStore((state) => state.errorData);
 export const useLibraryPagination = () => useLibraryStore((state) => state.pagination);
+export const useLibraryBookData = () => useLibraryStore((state) => state.bookData);
+export const useLibraryBookStatus = () => useLibraryStore((state) => state.bookStatus);

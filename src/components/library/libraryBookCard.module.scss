@@ -15,6 +15,8 @@
 
   &_info {
     padding-top: 0.5rem;
+    a {
+    }
 
     h3 {
       color: abstracts.$slate-500;
@@ -27,17 +29,4 @@
       font-size: 1rem;
     }
   }
-}
-
-.libraryBookCardPlaceholder {
-  width: 100%;
-  aspect-ratio: 5/8;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: abstracts.$slate-400;
-  font-size: 1.1rem;
-
-  background-color: abstracts.$slate-200;
 }
