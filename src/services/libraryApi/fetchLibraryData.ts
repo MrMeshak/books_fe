@@ -15,9 +15,16 @@ export interface IFetchLibraryDataSuccess {
 export type FetchLibraryDataResult = IFetchLibraryDataSuccess | IFetchLibraryDataError;
 
 export async function fetchLibraryData(queryStr: string): Promise<FetchLibraryDataResult> {
+  if (queryStr === '') {
+    return {
+      __typename: 'IFetchLibraryDataError',
+      message: 'Error - queryStr must not be empty'
+    };
+  }
+  console.log('query String', import.meta.env.VITE_G_BOOKS_SEARCH_API_URL + queryStr);
   let res;
   try {
-    res = await fetch('https://www.googleapis.com/books/v1' + queryStr);
+    res = await fetch(import.meta.env.VITE_G_BOOKS_SEARCH_API_URL + queryStr);
   } catch {
     return {
       __typename: 'IFetchLibraryDataError',

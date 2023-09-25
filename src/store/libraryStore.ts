@@ -40,11 +40,6 @@ export interface ILibraryState {
     loadMore: () => void;
     fetchBook: (id: string) => void;
   };
-
-  resolvers: {
-    libraryPageLibrary: () => void;
-    bookPageBook: () => void;
-  };
 }
 
 const useLibraryStore = create<ILibraryState>((set, get) => ({
@@ -82,22 +77,24 @@ const useLibraryStore = create<ILibraryState>((set, get) => ({
 
       console.log(queryStr);
 
-      //set(() => ({ status: { status: 'loading', message: 'fetching data' } }));
+      set(() => ({ status: { status: 'loading', message: 'fetching data' } }));
 
-      // const queryResult = await fetchLibraryData(queryStr);
-      // console.log(queryResult);
-      // if (queryResult.__typename === 'IFetchLibraryDataError') {
-      //   set(() => ({
-      //     status: { status: 'error', message: queryResult.message },
-      //     libraryData: undefined,
-      //     errorData: queryResult.errorData
-      //   }));
-      //   return;
-      // }
+      const queryResult = await fetchLibraryData(queryStr);
+      console.log(queryResult);
+
+      if (queryResult.__typename === 'IFetchLibraryDataError') {
+        set(() => ({
+          status: { status: 'error', message: queryResult.message },
+          libraryData: undefined,
+          errorData: queryResult.errorData
+        }));
+        return;
+      }
+
       set(() => ({
         searchStr: searchStr,
         status: { status: 'success', message: 'Success' },
-        libraryData: libraryData, //queryResult.data,
+        libraryData: queryResult.data,
         errorData: undefined
       }));
       return;
@@ -119,17 +116,17 @@ const useLibraryStore = create<ILibraryState>((set, get) => ({
         }
       }));
 
-      //const queryResult = await fetchLibraryData(queryStr);
-      // console.log(queryResult);
-      // if (queryResult.__typename === 'IFetchLibraryDataError') {
-      //   set(() => ({
-      //     pagination: {
-      //       ...pagination,
-      //       status: { status: 'error', message: 'Error - could not fetch more books' }
-      //     }
-      //   }));
-      //   return;
-      // }
+      const queryResult = await fetchLibraryData(queryStr);
+      console.log(queryResult);
+      if (queryResult.__typename === 'IFetchLibraryDataError') {
+        set(() => ({
+          pagination: {
+            ...pagination,
+            status: { status: 'error', message: 'Error - could not fetch more books' }
+          }
+        }));
+        return;
+      }
 
       set(() => ({
         pagination: {
@@ -138,8 +135,8 @@ const useLibraryStore = create<ILibraryState>((set, get) => ({
           page: pagination.page + 1
         },
         libraryData: {
-          ...libraryData, //...queryResult.data,
-          items: libraryData.items.concat(...libraryData.items) //queryResult.data.items)
+          ...queryResult.data,
+          items: libraryData.items.concat(...queryResult.data.items)
         }
       }));
       return;
@@ -182,11 +179,6 @@ const useLibraryStore = create<ILibraryState>((set, get) => ({
         bookData: bookData.data
       }));
     }
-  },
-
-  resolvers: {
-    libraryPageLibrary: () => {},
-    bookPageBook: () => {}
   }
 }));
 

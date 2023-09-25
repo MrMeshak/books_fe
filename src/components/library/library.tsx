@@ -15,7 +15,7 @@ export default function Library(props: ILibraryProps) {
   const searchStr = useLibrarySearchStr();
 
   if (libraryStatus.status === 'error') {
-    return <LibraryError />;
+    return <LibraryError errorMessage={libraryStatus.message} />;
   }
 
   if (libraryStatus.status === 'loading') {

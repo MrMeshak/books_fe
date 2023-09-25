@@ -1,0 +1,16 @@
+@use '../../styles/abstracts';
+
+.libraryLoading {
+  z-index: -1;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &_spinner {
+    @include abstracts.spinner(5rem, abstracts.$slate-200);
+  }
+}
+
+@include abstracts.spinnerAnimation;

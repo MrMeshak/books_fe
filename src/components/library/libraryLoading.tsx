@@ -1,11 +1,11 @@
-import * as React from 'react';
+import styles from './libraryLoading.module.scss';
 
 export interface ILibraryLoadingProps {}
 
 export default function LibraryLoading(props: ILibraryLoadingProps) {
   return (
-    <div>
-      <h3>Loading</h3>
+    <div className={styles.libraryLoading}>
+      <div className={styles.libraryLoading_spinner}></div>
     </div>
   );
 }
