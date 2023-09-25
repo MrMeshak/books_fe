@@ -13,6 +13,7 @@ export interface ILibraryApi_Book {
       smallThumbnail?: string;
       thumbnail?: string;
     };
+    pageCount: number;
     previewLink: string;
     infoLink: string;
   };

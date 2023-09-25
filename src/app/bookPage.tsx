@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useLibraryActions } from '../store/libraryStore';
 import Book from '../components/book/book';
-import NavBar from '../components/utils/navBar/navBar';
+import BookNav from '../components/book/bookNav';
 
 export interface IBookPageProps {}
 
@@ -12,11 +12,13 @@ export default function BookPage(props: IBookPageProps) {
 
   useEffect(() => {
     actions.fetchBook(id);
+    return actions.cleanUpBook;
   }, []);
 
   return (
     <div>
-      <NavBar />
+      {/* <NavBar /> */}
+      <BookNav />
       <Book />
     </div>
   );

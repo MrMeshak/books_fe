@@ -1,11 +1,12 @@
-import * as React from 'react';
+import styles from './bookError.module.scss';
 
 export interface IBookErrorProps {}
 
 export default function BookError(props: IBookErrorProps) {
   return (
-    <div>
-      <h3>Book Error</h3>
+    <div className={styles.bookError}>
+      <img src="/images/error.jpg" alt="Error on a computer screen" />
+      <h3>Oops, an error occurred</h3>
     </div>
   );
 }

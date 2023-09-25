@@ -1,11 +1,26 @@
 @use '../../styles/abstracts';
 
 .libraryBookCard {
+  &:hover {
+    a {
+      color: abstracts.$slate-950;
+    }
+
+    p {
+      color: abstracts.$slate-500;
+    }
+
+    .libraryBookCard_thumbnail {
+      outline: 6px solid abstracts.$slate-300;
+      transform: scale(0.985);
+    }
+  }
+
   &_thumbnail {
     padding: 0;
     border-radius: 1rem;
     overflow: hidden;
-    border: 5px solid abstracts.$slate-200;
+    outline: 5px solid abstracts.$slate-200;
 
     img {
       display: block;
@@ -15,8 +30,6 @@
 
   &_info {
     padding-top: 0.5rem;
-    a {
-    }
 
     h3 {
       color: abstracts.$slate-500;

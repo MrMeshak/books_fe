@@ -1,0 +1,69 @@
+@use '../../styles/abstracts';
+
+.bookCard {
+  width: 100%;
+  max-width: 80rem;
+  display: grid;
+
+  @include abstracts.media-query('sm') {
+    grid-template-columns: 1fr 1fr;
+    gap: 3vw;
+  }
+
+  &_thumbnail {
+    width: 100%;
+    height: min-content;
+    padding: 0;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 10px solid abstracts.$slate-200;
+
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  &_infoWrapper {
+  }
+
+  &_info {
+    padding: 1rem 0rem 1rem 0rem;
+    h2 {
+      font-size: 2.5rem;
+      color: abstracts.$slate-500;
+      padding-bottom: 0.5rem;
+      font-weight: 700;
+    }
+    p {
+      color: abstracts.$slate-400;
+      font-weight: 400;
+      font-size: 1.8rem;
+    }
+  }
+
+  &_details {
+    background-color: abstracts.$slate-200;
+    border-radius: 10px;
+    color: abstracts.$slate-500;
+
+    ul {
+      padding: 0.8rem 1rem;
+    }
+
+    li {
+      padding: 0.25rem;
+    }
+
+    a {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &_description {
+    padding: 1.5rem 0rem;
+    color: abstracts.$slate-500;
+  }
+}

@@ -1,0 +1,19 @@
+@use '../../styles/abstracts';
+
+.bookNav {
+  padding: 2rem 5vw;
+  a {
+    width: min-content;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 1.5rem;
+    color: abstracts.$slate-500;
+    stroke: abstracts.$slate-500;
+
+    &:hover {
+      color: abstracts.$slate-600;
+      stroke: abstracts.$slate-600;
+    }
+  }
+}

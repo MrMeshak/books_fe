@@ -2,7 +2,6 @@ import { create } from 'zustand';
 import { ILibraryApi_Book, ILibraryApi_Data, ILibraryApi_Error } from '../services/libraryApi/libraryApi.model';
 import { fetchLibraryData } from '../services/libraryApi/fetchLibraryData';
 import { generateQueryStr } from './helpers/generateQueryStr';
-import { libraryData } from '../data/development/libraryData';
 import { fetchBookData } from '../services/libraryApi/fetchBookData';
 
 export type Search_Sort = 'relevance' | 'newest';
@@ -39,6 +38,7 @@ export interface ILibraryState {
     search: (searchStr: string) => void;
     loadMore: () => void;
     fetchBook: (id: string) => void;
+    cleanUpBook: () => void;
   };
 }
 
@@ -144,9 +144,14 @@ const useLibraryStore = create<ILibraryState>((set, get) => ({
 
     fetchBook: async (id: string) => {
       if (id === '') {
-        set(() => ({ bookData: undefined }));
-        return;
+        set(() => ({
+          bookStatus: { status: '', message: '' },
+          bookErrorData: undefined,
+          bookData: undefined
+        }));
       }
+
+      set(() => ({ bookStatus: { status: 'loading', message: 'loading' } }));
 
       const { libraryData } = get();
       if (libraryData) {
@@ -161,7 +166,6 @@ const useLibraryStore = create<ILibraryState>((set, get) => ({
         }
       }
 
-      set(() => ({ bookStatus: { status: 'loading', message: 'loading' } }));
       const bookData = await fetchBookData(id);
 
       if (bookData.__typename === 'IFetchBookDataError') {
@@ -178,7 +182,13 @@ const useLibraryStore = create<ILibraryState>((set, get) => ({
         bookErrorData: undefined,
         bookData: bookData.data
       }));
-    }
+    },
+    cleanUpBook: () =>
+      set(() => ({
+        bookStatus: { status: '', message: '' },
+        bookErrorData: undefined,
+        bookData: undefined
+      }))
   }
 }));
 

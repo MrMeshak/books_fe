@@ -1,15 +1,16 @@
-import { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useLibraryActions, useLibraryBookData, useLibraryBookStatus } from '../../store/libraryStore';
-import BookInfo from './bookInfo';
+import { Link } from 'react-router-dom';
+import { useLibraryBookData, useLibraryBookStatus } from '../../store/libraryStore';
+import styles from './book.module.scss';
 import BookEmpty from './bookEmpty';
 import BookError from './bookError';
 import BookLoading from './bookLoading';
+import BookCard from './bookCard';
+import { LeftArrowIcon } from '../utils/icons/icons';
+import BookNav from './bookNav';
 
 export interface IBookProps {}
 
 export default function Book(props: IBookProps) {
-  const navigate = useNavigate();
   const bookStatus = useLibraryBookStatus();
   const bookData = useLibraryBookData();
 
@@ -21,14 +22,13 @@ export default function Book(props: IBookProps) {
     return <BookLoading />;
   }
 
-  if (!bookData) {
+  if (bookStatus.status === '' || bookData === undefined) {
     return <BookEmpty />;
   }
 
   return (
-    <div>
-      <button onClick={() => navigate(-1)}>Back</button>
-      <p>{bookData.volumeInfo.title}</p>
+    <div className={styles.book}>
+      <BookCard bookData={bookData} />
     </div>
   );
 }

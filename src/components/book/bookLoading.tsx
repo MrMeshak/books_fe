@@ -1,11 +1,11 @@
-import * as React from 'react';
+import styles from './bookLoading.module.scss';
 
 export interface IBookLoadingProps {}
 
 export default function BookLoading(props: IBookLoadingProps) {
   return (
-    <div>
-      <h3>Book Loading</h3>
+    <div className={styles.bookLoading}>
+      <div className={styles.bookLoading_spinner}></div>
     </div>
   );
 }
