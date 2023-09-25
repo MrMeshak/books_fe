@@ -40,7 +40,7 @@ export default function LibraryPagination(props: ILibraryPaginationProps) {
 
 function LibraryPaginationError() {
   return (
-    <div>
+    <div className={styles.libraryPaginationError}>
       <p>Error loading data</p>
     </div>
   );
@@ -48,8 +48,8 @@ function LibraryPaginationError() {
 
 function LibraryPaginationLoading() {
   return (
-    <div>
-      <p>Loading</p>
+    <div className={styles.libraryPaginationLoading}>
+      <div className={styles.libraryPaginationLoading_spinner}></div>
     </div>
   );
 }

@@ -19,3 +19,21 @@
     }
   }
 }
+
+.libraryPaginationLoading {
+  display: flex;
+  justify-content: center;
+  padding-top: 4rem;
+  &_spinner {
+    @include abstracts.spinner(1rem, abstracts.$slate-200);
+  }
+}
+
+.libraryPaginationError {
+  display: flex;
+  justify-content: center;
+  padding-top: 4rem;
+  color: abstracts.$slate-300;
+}
+
+@include abstracts.spinnerAnimation();
