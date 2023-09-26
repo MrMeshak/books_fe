@@ -18,7 +18,7 @@ export async function fetchBookData(id: string): Promise<FetchBookDataResult> {
   let res: Response;
   console.log('query string', import.meta.env.VITE_G_BOOKS_VOLUMES_API_URL + id);
   try {
-    res = await fetch(import.meta.env.VITE_G_BOOKS_VOLUMES_API_URL + id);
+    res = await fetch('https://www.googleapis.com/books/v1/volumes/' + id);
   } catch {
     return {
       __typename: 'IFetchBookDataError',

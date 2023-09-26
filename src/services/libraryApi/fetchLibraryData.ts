@@ -21,10 +21,9 @@ export async function fetchLibraryData(queryStr: string): Promise<FetchLibraryDa
       message: 'Error - queryStr must not be empty'
     };
   }
-  console.log('query String', import.meta.env.VITE_G_BOOKS_SEARCH_API_URL + queryStr);
   let res;
   try {
-    res = await fetch(import.meta.env.VITE_G_BOOKS_SEARCH_API_URL + queryStr);
+    res = await fetch('https://www.googleapis.com/books/v1/' + queryStr);
   } catch {
     return {
       __typename: 'IFetchLibraryDataError',
